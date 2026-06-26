@@ -9,6 +9,7 @@ Export the following files using pk3DS (if you reame them, remember to update pa
 - Level Up Moves.txt (Level Up Moves)
 - Moves.txt (Move Stats)
 - Battles.txt (Trainers)
+
 You will need Python (https://www.python.org).
 Make sure the exported files are in the same directory as parser.py.
 Add new forms to forms.txt.
