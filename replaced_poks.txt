@@ -1,0 +1,8 @@
+# If your game adds new Pokémon by replacing old ones, put those replacements in this file.
+# Format: <New Pokémon>:<Old Pokémon>
+# An example, Project Bugn't adds a new Pokémon "Krabbrr" in the place of Krabby. Therefore:
+# Krabbrr:Krabby
+# This will duplicate the entry of the new Pokémon for the old Pokémon,
+# so that if you import the old Pokémon, it will have the attributes of the new Pokémon.
+
+# Blank lines and lines starting with # will be ignored.
