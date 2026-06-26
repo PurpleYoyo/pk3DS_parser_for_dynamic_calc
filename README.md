@@ -11,4 +11,7 @@ Export the following files using pk3DS (if you reame them, remember to update pa
 - Battles.txt (Trainers)
 You will need Python (https://www.python.org).
 Make sure the exported files are in the same directory as parser.py.
+Add new forms to forms.txt.
+Add replaced poks to replaced_poks.txt.
+Change the GAME_TITLE in parser.py if you want.
 Run parser.py.
