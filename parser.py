@@ -222,6 +222,7 @@ ABILITY_INDICES = {
 }
 
 trainers_data = {}
+repeat_trainers = {}
 for i, line in enumerate(trainers_lines):
     line = line.strip()
     
@@ -230,6 +231,10 @@ for i, line in enumerate(trainers_lines):
     
     if line[0].isnumeric() and line[0] != '0' and '-' in line and not '[' in line and not '●' in line:
         current_trainer = line.split(' - ')[1]
+
+        if not current_trainer in repeat_trainers:
+            repeat_trainers[current_trainer] = 0
+        repeat_trainers[current_trainer] += 1
 
         num_poks = int(trainers_lines[i + 1][:-1])
         
@@ -268,7 +273,7 @@ for i, line in enumerate(trainers_lines):
             if not pok in trainers_data:
                 trainers_data[pok] = {}
             
-            trainers_data[pok][f'Lv. {level} {current_trainer} '] = {
+            trainers_data[pok][f'Lv. {level} {current_trainer} {repeat_trainers[current_trainer]} '] = {
                 'evs'       : evs,
                 'ivs'       : ivs,
                 'level'     : level,
