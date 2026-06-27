@@ -273,7 +273,7 @@ for i, line in enumerate(trainers_lines):
             if not pok in trainers_data:
                 trainers_data[pok] = {}
             
-            trainers_data[pok][f'Lv. {level} {current_trainer} {repeat_trainers[current_trainer]} '] = {
+            trainers_data[pok][f'Lvl {level} {current_trainer} {repeat_trainers[current_trainer]} '] = {
                 'evs'       : evs,
                 'ivs'       : ivs,
                 'level'     : level,
