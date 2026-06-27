@@ -1,6 +1,6 @@
 import json
 
-GAME_TITLE = 'My Game'
+GAME_TITLE = 'My ROMHack'
 
 MOVES_FILE = 'Moves.txt'
 POKS_FILE = 'Personal Entries.txt'
@@ -46,12 +46,14 @@ for line in replaced_poks_lines:
         continue
     
     parts = line.split(':')
-    replaced_poks[parts[0]] = parts[1]
+    replaced_poks[parts[1]] = parts[0]
 
 with open(FORMS_FILE, 'r') as file:
     forms_lines = file.readlines()
 
 forms = {}
+reversed_forms = {}
+other_formes = {}
 for line in forms_lines:
     line = line.strip()
     
@@ -60,6 +62,12 @@ for line in forms_lines:
     
     parts = line.split(':')
     forms[parts[0]] = parts[1]
+    reversed_forms[parts[1]] = parts[0].split(' ')[0]
+    
+    pok = parts[0].split(' ')[0]
+    if not pok in other_formes:
+        other_formes[pok] = []
+    other_formes[pok].append(parts[1])
 
 with open(POKS_FILE, 'r', encoding = 'utf-16') as file:
     poks_lines = file.readlines()
@@ -135,9 +143,6 @@ for i, line in enumerate(poks_lines):
             print('===\n')
             
             continue
-        
-        if current_pok in forms:
-            current_pok = forms[current_pok]
             
         pok_data = {
             'bs'        : bs,
@@ -146,10 +151,22 @@ for i, line in enumerate(poks_lines):
             'weightkg'  : weightkg,
             'id'        : pid,
         }
+        
+        base_species = None
+        if current_pok in forms:
+            current_pok = forms[current_pok]
+            base_species = reversed_forms[current_pok]
+        
+        if base_species is not None:
+            pok_data['baseSpecies'] = base_species
+        
+        if current_pok in other_formes:
+            pok_data['otherFormes'] = other_formes[current_pok]
+            
         poks_data[current_pok] = pok_data
         
-        if current_pok in replaced_poks:
-            poks_data[replaced_poks[current_pok]] = pok_data
+        #if current_pok in replaced_poks:
+        #    poks_data[replaced_poks[current_pok]] = pok_data
 #endregion Poks Data
 
 #region Learnset Data
@@ -269,6 +286,9 @@ data = {
     'poks'              : poks_data,
     'formatted_sets'    : trainers_data,
 }
+
+if replaced_poks:
+    data['poks_replacements'] = replaced_poks
 
 with open(OUTPUT_FILE, 'w') as file:
     json.dump(data, file, indent = 4)
