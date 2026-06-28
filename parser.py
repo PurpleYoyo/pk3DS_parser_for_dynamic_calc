@@ -46,7 +46,7 @@ for line in replaced_poks_lines:
         continue
     
     parts = line.split(':')
-    replaced_poks[parts[1]] = parts[0]
+    replaced_poks[parts[0]] = parts[1]
 
 with open(FORMS_FILE, 'r') as file:
     forms_lines = file.readlines()
@@ -165,8 +165,8 @@ for i, line in enumerate(poks_lines):
             
         poks_data[current_pok] = pok_data
         
-        #if current_pok in replaced_poks:
-        #    poks_data[replaced_poks[current_pok]] = pok_data
+        if current_pok in replaced_poks:
+            poks_data[replaced_poks[current_pok]] = pok_data
 #endregion Poks Data
 
 #region Learnset Data
@@ -292,8 +292,8 @@ data = {
     'formatted_sets'    : trainers_data,
 }
 
-if replaced_poks:
-    data['poks_replacements'] = replaced_poks
+#if replaced_poks:
+#    data['poks_replacements'] = replaced_poks
 
 with open(OUTPUT_FILE, 'w') as file:
     json.dump(data, file, indent = 4)
